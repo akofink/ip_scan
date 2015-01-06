@@ -22,7 +22,7 @@ if @start && @end && @start.to_i < @end.to_i
 
   (@start..@end).each do |address|
     @threads << Thread.start do
-      unless `ping -ot1 #{address.to_s}`[/(timeout|no route to host|Host is down|100.0% packet loss)/]
+      unless `ping -ot1 #{address.to_s} 2> /dev/null`[/(timeout|no route to host|Host is down|100.0% packet loss)/]
         @valid_addresses << address
       end
     end
